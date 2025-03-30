@@ -3,22 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- SEO 기본 메타태그 -->
   <title>보조배터리 기내반입 확인기 | 항공기 반입 가능 여부 계산</title>
-  <meta name="description" content="보조배터리의 전하량(mAh)과 전압(V)을 입력하면 기내 반입 가능 여부를 확인할 수 있습니다. 제주항공 등 항공사 기준을 반영하여 정확하게 안내합니다.">
-  <meta name="keywords" content="보조배터리, 기내반입, 보조배터리 기내, 항공기 반입, mAh 계산기, 비행기 배터리">
+
+  <!-- SEO 기본 설정 -->
+  <meta name="description" content="보조배터리의 전하량(mAh)과 전압(V)을 입력하면 기내 반입 가능 여부를 계산해줍니다. 제주항공 등 항공사 기준 반영!">
+  <meta name="keywords" content="보조배터리, 기내반입, 비행기 배터리, mAh 계산기, Wh 변환, 항공사 배터리 제한, 제주항공, 기내 수하물">
   <meta name="author" content="Battery Checker">
   <meta name="google-adsense-account" content="ca-pub-3481273227930847">
 
-  <!-- OG(Open Graph) 태그: SNS/카카오톡 공유 대비 -->
+  <!-- Open Graph / SNS 공유용 -->
   <meta property="og:title" content="보조배터리 기내반입 확인기" />
-  <meta property="og:description" content="보조배터리 전하량과 전압을 입력하면 기내 반입 가능 여부를 알려드립니다!" />
+  <meta property="og:description" content="전하량과 전압을 입력하면 기내 반입 가능 여부를 계산해드립니다!" />
   <meta property="og:url" content="https://battery-checker.github.io/" />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://battery-checker.github.io/thumbnail.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="보조배터리 기내반입 확인기">
+  <meta name="twitter:description" content="보조배터리 전하량과 전압으로 기내반입 가능 여부를 바로 확인하세요!">
+  <meta name="twitter:image" content="https://battery-checker.github.io/thumbnail.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
       font-family: 'Nunito', sans-serif;
+    }
+    body {
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -28,7 +46,16 @@
     }
     h1 {
       text-align: center;
-      color: #333;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+    h2 {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 0;
+      margin-bottom: 30px;
+      color: #666;
     }
     label {
       display: block;
@@ -57,7 +84,7 @@
       color: #fff;
     }
     .link-button a {
-      background-color: #ff69b4; /* 핑크색 */
+      background-color: #ff69b4;
       color: #fff;
     }
     #result {
@@ -84,6 +111,7 @@
 <body>
   <h1>🔋 보조배터리 기내반입 확인기</h1>
   <h2>기내에 가져갈 수 있는지 지금 바로 계산해보세요!</h2>
+
   <label for="capacity">전하량 (mAh)</label>
   <input type="number" id="capacity" placeholder="예: 10000">
 
