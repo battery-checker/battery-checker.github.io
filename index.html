@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>보조배터리 기내반입 확인기</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Nunito', sans-serif;
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -32,20 +33,37 @@
       padding: 10px;
       width: 100%;
       font-size: 16px;
+      font-weight: bold;
       display: inline-block;
       text-align: center;
-      background-color: #007bff;
-      color: #fff;
       text-decoration: none;
       border: none;
       border-radius: 5px;
       box-sizing: border-box;
     }
+    button {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .link-button a {
+      background-color: #ff69b4; /* 핑크색 */
+      color: #fff;
+    }
     #result {
       margin-top: 20px;
+      min-height: 60px;
       font-size: 18px;
       font-weight: bold;
       text-align: center;
+    }
+    .danger {
+      color: red;
+    }
+    .safe {
+      color: green;
+    }
+    .warning {
+      color: orange;
     }
     .link-button {
       margin-top: 40px;
@@ -83,14 +101,14 @@
       let message = `계산된 용량: ${wh.toFixed(2)}Wh. `;
 
       if (wh <= 100) {
-        message += '→ 기내반입 가능 (최대 5개).';
+        message += '<span class="safe">😊 기내반입 가능 (최대 5개) 😊</span>';
       } else if (wh > 100 && wh <= 160) {
-        message += '→ 항공사 승인 필요 (최대 2개).';
+        message += '<span class="warning">❗ 항공사 승인 필요 (최대 2개) ❗</span>';
       } else {
-        message += '→ 기내반입 불가.';
+        message += '<span class="danger">❌ 기내반입 불가 ❌</span>';
       }
 
-      resultDiv.textContent = message;
+      resultDiv.innerHTML = message;
     }
   </script>
 </body>
