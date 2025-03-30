@@ -27,17 +27,28 @@
       padding: 8px;
       box-sizing: border-box;
     }
-    button {
+    button, .link-button a {
       margin-top: 20px;
       padding: 10px;
       width: 100%;
       font-size: 16px;
+      display: inline-block;
+      text-align: center;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
     }
     #result {
       margin-top: 20px;
       font-size: 18px;
       font-weight: bold;
       text-align: center;
+    }
+    .link-button {
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -53,30 +64,9 @@
 
   <div id="result"></div>
 
+  <div class="link-button">
+    <a href="procedure.html">기내반입 절차 확인하기</a>
+  </div>
+
   <script>
-    function checkBattery() {
-      const capacity = parseFloat(document.getElementById('capacity').value);
-      const voltage = parseFloat(document.getElementById('voltage').value);
-      const resultDiv = document.getElementById('result');
-
-      if (isNaN(capacity) || isNaN(voltage)) {
-        resultDiv.textContent = '전하량과 전압을 모두 입력해주세요.';
-        return;
-      }
-
-      const wh = (capacity * voltage) / 1000;
-      let message = `계산된 용량: ${wh.toFixed(2)}Wh. `;
-
-      if (wh <= 100) {
-        message += '→ 기내반입 가능 (최대 5개).';
-      } else if (wh > 100 && wh <= 160) {
-        message += '→ 항공사 승인 필요 (최대 2개).';
-      } else {
-        message += '→ 기내반입 불가.';
-      }
-
-      resultDiv.textContent = message;
-    }
-  </script>
-</body>
-</html>
+    function
