@@ -32,20 +32,47 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <!-- 구조화 데이터: WebSite -->
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "보조배터리 기내반입 확인기",
-      "url": "https://battery-checker.github.io",
-      "description": "보조배터리의 전하량과 전압을 입력하면 기내 반입 가능 여부를 계산해주는 무료 도구입니다.",
-      "inLanguage": "ko",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Battery Checker"
-      }
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "보조배터리 기내반입 확인기",
+    "url": "https://battery-checker.github.io",
+    "description": "보조배터리의 전하량과 전압을 입력하면 기내 반입 가능 여부를 계산해주는 무료 도구입니다.",
+    "inLanguage": "ko",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Battery Checker"
     }
-</script>
+  }
+  </script>
+
+  <!-- 구조화 데이터: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "10000mAh 보조배터리는 기내반입 가능한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "보통 3.7V 기준으로 약 37Wh로 계산되며, 100Wh 이하이므로 기내반입 가능합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "보조배터리를 수하물로 부칠 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "보조배터리는 수하물로 위탁이 불가능하며 반드시 기내로 들고 탑승해야 합니다."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     * {
       font-family: 'Nunito', sans-serif;
@@ -151,18 +178,26 @@
         return;
       }
 
-      const wh = (capacity * voltage) / 1000;
-      let message = `계산된 용량: ${wh.toFixed(2)}Wh. `;
+       const wh = (capacity * voltage) / 1000;
+
+      let resultClass = '';
+      let resultText = '';
 
       if (wh <= 100) {
-        message += '<span class="safe">😊 기내반입 가능 (최대 5개) 😊</span>';
+        resultClass = 'safe';
+        resultText = '😊 기내반입 가능 (최대 5개) 😊';
       } else if (wh > 100 && wh <= 160) {
-        message += '<span class="warning">❗ 항공사 승인 필요 (최대 2개) ❗</span>';
+        resultClass = 'warning';
+        resultText = '❗ 항공사 승인 필요 (최대 2개) ❗';
       } else {
-        message += '<span class="danger">❌ 기내반입 불가 ❌</span>';
+        resultClass = 'danger';
+        resultText = '❌ 기내반입 불가 ❌';
       }
 
-      resultDiv.innerHTML = message;
+      resultDiv.innerHTML = `
+        <div>계산된 용량: ${wh.toFixed(2)}Wh</div>
+        <div class="${resultClass}">${resultText}</div>
+      `;
     }
   </script>
 </body>
