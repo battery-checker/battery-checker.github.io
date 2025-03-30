@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>보조배터리 기내반입 확인기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>보조배터리 기내반입 확인기</h1>
+  <label for="capacity">전하량 (mAh)</label>
+  <input type="number" id="capacity" placeholder="예: 10000">
+
+  <label for="voltage">전압 (V)</label>
+  <input type="number" step="0.1" id="voltage" placeholder="예: 3.7">
+
+  <button onclick="checkBattery()">확인하기</button>
+
+  <div id="result"></div>
+
+  <script>
+    function checkBattery() {
+      const capacity = parseFloat(document.getElementById('capacity').value);
+      const voltage = parseFloat(document.getElementById('voltage').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(capacity) || isNaN(voltage)) {
+        resultDiv.textContent = '전하량과 전압을 모두 입력해주세요.';
+        return;
+      }
+
+      const wh = (capacity * voltage) / 1000;
+      let message = `계산된 용량: ${wh.toFixed(2)}Wh. `;
+
+      if (wh <= 100) {
+        message += '→ 기내반입 가능 (최대 5개).';
+      } else if (wh > 100 && wh <= 160) {
+        message += '→ 항공사 승인 필요 (최대 2개).';
+      } else {
+        message += '→ 기내반입 불가.';
+      }
+
+      resultDiv.textContent = message;
+    }
+  </script>
+</body>
+</html>
