@@ -26,7 +26,6 @@
   <meta name="twitter:image" content="https://battery-checker.github.io/thumbnail.png">
   <meta name="google-site-verification" content="rPWqWyhqRGxmAzhZXMvxzKXFdKmPo7msjmLJwe5H-n8" />
 
-
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -34,47 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-  <!-- 구조화 데이터: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "보조배터리 기내반입 확인기",
-    "url": "https://battery-checker.github.io",
-    "description": "보조배터리의 전하량과 전압을 입력하면 기내 반입 가능 여부를 계산해주는 무료 도구입니다.",
-    "inLanguage": "ko",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Battery Checker"
-    }
-  }
-  </script>
 
-  <!-- 구조화 데이터: FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "10000mAh 보조배터리는 기내반입 가능한가요?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "보통 3.7V 기준으로 약 37Wh로 계산되며, 100Wh 이하이므로 기내반입 가능합니다."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "보조배터리를 수하물로 부칠 수 있나요?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "보조배터리는 수하물로 위탁이 불가능하며 반드시 기내로 들고 탑승해야 합니다."
-        }
-      }
-    ]
-  }
-  </script>
   <style>
     * {
       font-family: 'Nunito', sans-serif;
@@ -83,9 +42,7 @@
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
-      border: 1px solid #ccc;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     h1 {
       text-align: center;
@@ -121,14 +78,16 @@
       border: none;
       border-radius: 5px;
       box-sizing: border-box;
+      color: #fff;
     }
     button {
-      background-color: #007bff;
-      color: #fff;
+      background-color: #77D986;
+    }
+    .battery-info a {
+      background-color: #A0D9A9;
     }
     .link-button a {
-      background-color: #ff69b4;
-      color: #fff;
+      background-color: #327337;
     }
     #result {
       margin-top: 20px;
@@ -147,13 +106,25 @@
       color: orange;
     }
     .link-button {
-      margin-top: 40px;
+      margin-top: 20px;
     }
     .footer {
       text-align: center;
       font-size: 12px;
       color: #888;
       margin-top: 60px;
+    }
+    #battery-limit-info {
+      margin-top: 15px;
+      font-size: 15px;
+      text-align: center;
+      line-height: 1.8;
+      display: none;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -169,15 +140,29 @@
 
   <button onclick="checkBattery()">확인하기</button>
 
-  <div id="result"></div>
+  <div id="result">전하량과 전압을 모두 입력해주세요.</div>
+
+  <div class="link-button battery-info">
+    <a href="#" onclick="toggleBatteryInfo(); return false;">배터리 개수 제한 확인하기</a>
+  </div>
+
+  <div id="battery-limit-info">
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px;">
+      <div>🔋 100Wh 이하 배터리<br>최대 5개</div>
+      <div style="align-self: center; font-size: 20px;">➕</div>
+      <div>⚡ 100Wh 초과 160Wh 이하<br>최대 2개</div>
+      <div style="align-self: center; font-size: 20px;">＝</div>
+      <div style="margin-top: 8px;">😊 합산 7개 가능</div>
+    </div>
+  </div>
 
   <div class="link-button">
     <a href="procedure.html">기내반입 절차 확인하기</a>
   </div>
 
   <div class="footer">
-    위 보조배터리 기내반입확인기는 국토교통부의 지침에 의거하여 제작되었습니다. <br>
-    행복한 여행 되시길 바랍니다. 감사합니다.
+    🛫 위 보조배터리 기내반입확인기는 국토교통부의 지침에 의거하여 제작되었습니다. <br>
+    😊  안전하고 행복한 여행 되시길 바랍니다. 감사합니다. ✨
   </div>
 
   <script>
@@ -191,7 +176,7 @@
         return;
       }
 
-       const wh = (capacity * voltage) / 1000;
+      const wh = (capacity * voltage) / 1000;
 
       let resultClass = '';
       let resultText = '';
@@ -211,6 +196,11 @@
         <div>계산된 용량: ${wh.toFixed(2)}Wh</div>
         <div class="${resultClass}">${resultText}</div>
       `;
+    }
+
+    function toggleBatteryInfo() {
+      const info = document.getElementById('battery-limit-info');
+      info.style.display = (info.style.display === 'block') ? 'none' : 'block';
     }
   </script>
 </body>
