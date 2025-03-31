@@ -142,7 +142,7 @@
 
   <button onclick="checkBattery()">확인하기</button>
 
-  <div id="result">전하량과 전압을 모두 입력해주세요.</div>
+  <div id="result">전하량과 전압을 모두 입력해주세요.<br>보조배터리 하나를 기준으로 작성해주세요</div>
 
   <div class="link-button battery-info">
     <a href="#" onclick="toggleBatteryInfo(); return false;">배터리 개수 제한 확인하기</a>
@@ -163,7 +163,7 @@
   </div>
 
   <div id="procedure-info" style="display: none; text-align: center; animation: fadeIn 0.3s ease-in-out;">
-    <h2 style="font-weight: bold;">Step1 단락방지 조치!</h2>
+    <h1 style="font-weight: bold;">Step1 단락방지 조치!</h1>
     <p style="font-size: 14px; margin-top: -10px;">다음 3가지 중에서 하나의 방법으로 조치</p>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
       <img src="image1.jpg" alt="단락방지 1" style="max-width: 160px; width: 100%; height: auto;">
@@ -173,7 +173,7 @@
   </div>
 
   <div id="procedure-step2" style="display: none; text-align: center; animation: fadeIn 0.3s ease-in-out;">
-    <h2 style="font-weight: bold; margin-top: 40px;">Step2 필요 시 카운터 방문하여 스티커 부착</h2>
+    <h1 style="font-weight: bold; margin-top: 40px;">Step2 필요 시 카운터 방문하여 스티커 부착</h1>
     <p style="font-size: 14px; margin-top: -10px;">100Wh 이하 배터리 5개 이상 혹은 100Wh~160Wh 배터리 소지시</p>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
       <img src="image4.jpg" alt="스티커 부착 절차" style="max-width: 100%; width: 100%; height: auto;">
@@ -181,72 +181,65 @@
   </div>
 
   <div id="procedure-step3" style="display: none; text-align: center; animation: fadeIn 0.3s ease-in-out;">
-    <h2 style="font-weight: bold; margin-top: 40px;">Step3 기내탑승시에는 몸에 지니거나 좌석 앞주머니에 보관!</h2>
+    <h1 style="font-weight: bold; margin-top: 40px;">Step3 기내탑승시에는 몸에 지니거나 좌석 앞주머니에 보관!</h1>
     <p style="color: red; font-size: 14px; margin-top: -10px;">(기내선반 보관 금지)</p>
   </div>
-$2
-    🛫 위 보조배터리 기내반입확인기는 국토교통부의 지침에 의거하여 제작되었습니다. <br>
-    😊  안전하고 행복한 여행 되시길 바랍니다. 감사합니다. ✨
+<div class="footer">
+    <div style="text-align: center;">
+      🛫 위 보조배터리 기내반입확인기는 국토교통부의 지침에 의거하여 제작되었습니다.<br>
+      😊 안전하고 행복한 여행 되시길 바랍니다. 감사합니다. ✨
+    </div>
   </div>
 
   <script>
-    function checkBattery() {
-      const capacity = parseFloat(document.getElementById('capacity').value);
-      const voltage = parseFloat(document.getElementById('voltage').value);
-      const resultDiv = document.getElementById('result');
+  function checkBattery() {
+    const capacity = parseFloat(document.getElementById('capacity').value);
+    const voltage = parseFloat(document.getElementById('voltage').value);
+    const resultDiv = document.getElementById('result');
 
-      if (isNaN(capacity) || isNaN(voltage)) {
-        resultDiv.textContent = '전하량과 전압을 모두 입력해주세요.';
-        return;
-      }
-
-      const wh = (capacity * voltage) / 1000;
-
-      let resultClass = '';
-      let resultText = '';
-
-      if (wh <= 100) {
-        resultClass = 'safe';
-        resultText = '😊 기내반입 가능 (최대 5개) 😊';
-      } else if (wh > 100 && wh <= 160) {
-        resultClass = 'warning';
-        resultText = '❗ 항공사 승인 필요 (최대 2개) ❗<br><span style="font-size: 14px; font-weight: normal;">승인을 위해 카운터를 방문해주세요</span>';
-      } else {
-        resultClass = 'danger';
-        resultText = '❌ 기내반입 불가 ❌';
-      }
-
-      resultDiv.innerHTML = `
-        <div>계산된 용량: ${wh.toFixed(2)}Wh</div>
-        <div class="${resultClass}">${resultText}</div>
-      `;
+    if (isNaN(capacity) || isNaN(voltage)) {
+      resultDiv.innerHTML = '전하량과 전압을 모두 입력해주세요.<br>보조배터리 하나를 기준으로 작성해주세요';
+      return;
     }
 
-    function toggleBatteryInfo() {
-      const info = document.getElementById('battery-limit-info');
-      info.style.display = (info.style.display === 'block') ? 'none' : 'block';
+    const wh = (capacity * voltage) / 1000;
+
+    let resultClass = '';
+    let resultText = '';
+
+    if (wh <= 100) {
+      resultClass = 'safe';
+      resultText = '😊 기내반입 가능 (최대 5개) 😊';
+    } else if (wh > 100 && wh <= 160) {
+      resultClass = 'warning';
+      resultText = '❗ 항공사 승인 필요 (최대 2개) ❗<br><span style="font-size: 14px; font-weight: normal;">승인을 위해 카운터를 방문해주세요</span>';
+    } else {
+      resultClass = 'danger';
+      resultText = '❌ 기내반입 불가 ❌';
     }
+
+    resultDiv.innerHTML = `
+      <div>계산된 용량: ${wh.toFixed(2)}Wh</div>
+      <div class="${resultClass}">${resultText}</div>
+    `;
+  }
+
+  function toggleBatteryInfo() {
+    const info = document.getElementById('battery-limit-info');
+    info.style.display = (info.style.display === 'block') ? 'none' : 'block';
+  }
+
   function showProcedure() {
-  const section1 = document.getElementById('procedure-info');
-  const section2 = document.getElementById('procedure-step2');
-  const section3 = document.getElementById('procedure-step3');
-  const isVisible = section1.style.display === 'block';
+    const section1 = document.getElementById('procedure-info');
+    const section2 = document.getElementById('procedure-step2');
+    const section3 = document.getElementById('procedure-step3');
+    const isVisible = section1.style.display === 'block';
 
-  section1.style.display = isVisible ? 'none' : 'block';
-  section2.style.display = 'none';
-  section3.style.display = 'none';
-
-  if (!isVisible) {
-    setTimeout(() => {
-      section2.style.display = 'block';
-    }, 400);
-    setTimeout(() => {
-      section3.style.display = 'block';
-    }, 800);
+    const displayStyle = isVisible ? 'none' : 'block';
+    section1.style.display = displayStyle;
+    section2.style.display = displayStyle;
+    section3.style.display = displayStyle;
   }
-}, 400); // STEP1 애니메이션 끝난 후 STEP2 표시
-  }
-}
-  </script>
+</script>
 </body>
 </html>
