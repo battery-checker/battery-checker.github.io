@@ -162,7 +162,15 @@
     <a href="#" onclick="showProcedure(); return false;">기내반입 절차 확인하기</a>
   </div>
 
-  $1
+  <div id="procedure-info" style="display: none; text-align: center; animation: fadeIn 0.3s ease-in-out;">
+    <h2 style="font-weight: bold;">Step1 단락방지 조치!</h2>
+    <p style="font-size: 14px; margin-top: -10px;">다음 3가지 중에서 하나의 방법으로 조치</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
+      <img src="image1.jpg" alt="단락방지 1" style="max-width: 160px; width: 100%; height: auto;">
+      <img src="image2.jpg" alt="단락방지 2" style="max-width: 160px; width: 100%; height: auto;">
+      <img src="image3.jpg" alt="단락방지 3" style="max-width: 160px; width: 100%; height: auto;">
+    </div>
+  </div>
 
   <div id="procedure-step2" style="display: none; text-align: center; animation: fadeIn 0.3s ease-in-out;">
     <h2 style="font-weight: bold; margin-top: 40px;">Step2 필요 시 카운터 방문하여 스티커 부착</h2>
@@ -170,7 +178,13 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
       <img src="image4.jpg" alt="스티커 부착 절차" style="max-width: 100%; width: 100%; height: auto;">
     </div>
-  </div>$2
+  </div>
+
+  <div id="procedure-step3" style="display: none; text-align: center; animation: fadeIn 0.3s ease-in-out;">
+    <h2 style="font-weight: bold; margin-top: 40px;">Step3 기내탑승시에는 몸에 지니거나 좌석 앞주머니에 보관!</h2>
+    <p style="color: red; font-size: 14px; margin-top: -10px;">(기내선반 보관 금지)</p>
+  </div>
+$2
     🛫 위 보조배터리 기내반입확인기는 국토교통부의 지침에 의거하여 제작되었습니다. <br>
     😊  안전하고 행복한 여행 되시길 바랍니다. 감사합니다. ✨
   </div>
@@ -215,14 +229,22 @@
   function showProcedure() {
   const section1 = document.getElementById('procedure-info');
   const section2 = document.getElementById('procedure-step2');
+  const section3 = document.getElementById('procedure-step3');
   const isVisible = section1.style.display === 'block';
+
   section1.style.display = isVisible ? 'none' : 'block';
   section2.style.display = 'none';
+  section3.style.display = 'none';
 
   if (!isVisible) {
     setTimeout(() => {
       section2.style.display = 'block';
-    }, 400); // STEP1 애니메이션 끝난 후 STEP2 표시
+    }, 400);
+    setTimeout(() => {
+      section3.style.display = 'block';
+    }, 800);
+  }
+}, 400); // STEP1 애니메이션 끝난 후 STEP2 표시
   }
 }
   </script>
