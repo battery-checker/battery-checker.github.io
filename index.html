@@ -120,10 +120,12 @@
       text-align: center;
       line-height: 1.8;
       display: none;
-      animation: fadeIn 0.8s ease-in-out;
+      animation: fadeIn 0.3s ease-in-out;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -156,8 +158,18 @@
     </div>
   </div>
 
-  <div class="link-button">
-    <a href="procedure.html">기내반입 절차 확인하기</a>
+  <div class="link-button" style="margin-bottom: 40px;">
+    <a href="#" onclick="showProcedure(); return false;">기내반입 절차 확인하기</a>
+  </div>
+
+  <div id="procedure-info" style="display: none; text-align: center; animation: fadeIn 0.8s ease-in-out;">
+    <h2 style="font-weight: bold;">Step1 단락방지 조치!</h2>
+    <p style="font-size: 14px; margin-top: -10px;">다음 3가지 중에서 하나의 방법으로 조치</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
+      <img src="image1.png" alt="단락방지 1" style="max-width: 160px; width: 100%; height: auto;">
+      <img src="image2.png" alt="단락방지 2" style="max-width: 160px; width: 100%; height: auto;">
+      <img src="image3.png" alt="단락방지 3" style="max-width: 160px; width: 100%; height: auto;">
+    </div>
   </div>
 
   <div class="footer">
@@ -186,7 +198,7 @@
         resultText = '😊 기내반입 가능 (최대 5개) 😊';
       } else if (wh > 100 && wh <= 160) {
         resultClass = 'warning';
-        resultText = '❗ 항공사 승인 필요 (최대 2개) ❗';
+        resultText = '❗ 항공사 승인 필요 (최대 2개) ❗<br><span style="font-size: 14px; font-weight: normal;">승인을 위해 카운터를 방문해주세요</span>';
       } else {
         resultClass = 'danger';
         resultText = '❌ 기내반입 불가 ❌';
@@ -201,6 +213,10 @@
     function toggleBatteryInfo() {
       const info = document.getElementById('battery-limit-info');
       info.style.display = (info.style.display === 'block') ? 'none' : 'block';
+    }
+  function showProcedure() {
+      const section = document.getElementById('procedure-info');
+      section.style.display = (section.style.display === 'block') ? 'none' : 'block';
     }
   </script>
 </body>
