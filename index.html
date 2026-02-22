@@ -116,9 +116,11 @@
     }
 .preset-buttons {
   display: grid;
-  grid-template-columns: repeat(2, 120px); /* 버튼 폭 고정 */
-  justify-content: center; /* 가운데 정렬 */
-  gap: 8px; /* 버튼 사이 간격 */
+  grid-template-columns: 1fr 1fr;
+
+  column-gap: 6px;  /* ← 열 사이 간격만 줄임 */
+  row-gap: 10px;    /* ← 위아래 간격은 그대로 */
+
   margin-top: 10px;
 }
 
