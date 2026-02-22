@@ -114,6 +114,27 @@
       color: #888;
       margin-top: 60px;
     }
+    .preset-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.preset-buttons button {
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  background-color: #77D986; /* 기존 버튼 색상 */
+  color: #fff;
+  cursor: pointer;
+}
+
+.preset-buttons button:hover {
+  background-color: #5cc96e;
+}
     #battery-limit-info {
       margin-top: 15px;
       font-size: 15px;
@@ -136,7 +157,13 @@
 
   <label for="capacity">전하량 (mAh)</label>
   <input type="number" id="capacity" placeholder="예: 10000">
-
+  <!-- 26.02.22 자주 사용하는 전하량 버튼 추-->
+  <div class="preset-buttons">
+    <button type="button" onclick="setCapacity(5000)">5,000</button>
+    <button type="button" onclick="setCapacity(10000)">10,000</button>
+    <button type="button" onclick="setCapacity(20000)">20,000</button>
+    <button type="button" onclick="setCapacity(30000)">30,000</button>
+  </div>
   <label for="voltage">전압 (V)</label>
   <input type="number" step="0.1" id="voltage" placeholder="예: 3.7">
 
